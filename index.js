@@ -6,6 +6,11 @@ const chatRoutes = require('./Routes/chatRoutes')
 const messageRoutes = require('./Routes/messageRoutes')
 const cors = require("cors");
 
+// https://chat-app-backed.onrender.com
+// https://weak-ruby-earthworm-tux.cyclic.cloud
+
+
+
 const app = express()
 app.use(cors({
     origin:'*',
@@ -34,6 +39,7 @@ const connectdb = async ()=>{
         console.log("server is not connected",err.message)
     }
 }
-connectdb()
+connectdb().then(()=>{
+    app.listen(PORT,console.log("server is running"))
+})
 
-app.listen(PORT,console.log("server is running"))
