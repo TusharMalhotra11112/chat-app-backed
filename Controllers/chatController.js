@@ -72,7 +72,12 @@ const fetchChat = asyncHandeler( async(req,res)=>{
 
 const fetchGroups  =asyncHandeler( async(req,res)=>{
     try{
-        const allgroup = await chatModel.where("isGroupChat").equals(true)
+        const {userId} = req.body
+        if (!userId) {
+            console.log("UserId param not sent with request");
+            return res.sendStatus(400);
+        }
+        const allgroup = await chatModel.find({"isGroupChat":true,"users":{$in:userId}})
         res.status(200)
         res.send(allgroup)
     }
